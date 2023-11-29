@@ -28,7 +28,6 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener{
             val loginusername = binding.email.text.toString() // take info from text field
             val loginPassword = binding.password.text.toString()
-
             if (loginusername.isNotEmpty() && loginPassword.isNotEmpty()){
                 loginUser(loginusername,loginPassword) // use function
             }else  {
@@ -43,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun loginUser(username: String, password: String){
+    private fun loginUser(username: String, password: String,){
         databaseReference.orderByChild("username").equalTo(username).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -52,20 +51,20 @@ class LoginActivity : AppCompatActivity() {
                         val userData = userSnapshot.getValue(UserData::class.java)
 
                         if(userData != null && userData.password == password){
-                            Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT)
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this@LoginActivity, MainActivity()::class.java))
                             finish()
                             return
                         }
+                        else {
+                            Toast.makeText(this@LoginActivity, "Login Failed! Check credentials", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
-                else {
-                    Toast.makeText(this@LoginActivity, "Login Failed! Check credentials", Toast.LENGTH_SHORT)
                 }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(this@LoginActivity, "Database Error: ${databaseError.message}", Toast.LENGTH_SHORT)
+                Toast.makeText(this@LoginActivity, "Database Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
             }
 
         })
