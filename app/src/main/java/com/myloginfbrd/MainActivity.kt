@@ -2,13 +2,10 @@ package com.myloginfbrd
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.myloginfbrd.databinding.ActivityMainBinding
-import android.view.ViewGroup
-import android.widget.RelativeLayout
-import android.widget.Toast
-
+import android.widget.ImageView
+import android.net.Uri
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

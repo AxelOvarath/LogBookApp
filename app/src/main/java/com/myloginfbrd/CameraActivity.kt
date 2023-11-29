@@ -7,7 +7,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -51,6 +53,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.myloginfbrd.Theme.CameraXGuideTheme
 import kotlinx.coroutines.launch
+import java.io.File
+import java.util.Date
+import java.util.Locale
 
 class CameraActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -199,7 +204,6 @@ class CameraActivity : ComponentActivity() {
             }
         )
     }
-
     private fun hasRequiredPermissions(): Boolean { // kijkt na of de app over alle camera permissions bezit
         return CAMERAX_PERMISSIONS.all {
             ContextCompat.checkSelfPermission(
