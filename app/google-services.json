@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "946952499809",
+    "project_id": "myloginfbrd",
+    "storage_bucket": "myloginfbrd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946952499809:android:c5ef938ab8176ae054b020",
+        "android_client_info": {
+          "package_name": "com.myloginfbrd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYMHH6yBKzrOyA5O4XFUTwYuVqAJ1b1Zo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
