@@ -55,7 +55,7 @@ import kotlinx.coroutines.launch
 class CameraActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!hasRequiredPermissions()) {
+        if (!hasRequiredPermissions()) { // request permission
             ActivityCompat.requestPermissions(
                 this, CAMERAX_PERMISSIONS, 0
             )
@@ -64,9 +64,9 @@ class CameraActivity : ComponentActivity() {
             CameraXGuideTheme {
                 val scope = rememberCoroutineScope()
                 val scaffoldState = rememberBottomSheetScaffoldState()
-                val controller = remember {
+                val controller = remember { // controller mag niet opnieuw gamaakt worden van daar een remember value
                     LifecycleCameraController(applicationContext).apply {
-                        setEnabledUseCases(
+                        setEnabledUseCases( // met deze functie activeren we de camera
                             CameraController.IMAGE_CAPTURE or
                                     CameraController.VIDEO_CAPTURE
                         )
@@ -85,7 +85,7 @@ class CameraActivity : ComponentActivity() {
                                 .fillMaxWidth()
                         )
                     }
-                ) { padding ->
+                ) { padding -> // box met camerapreview, en icoontjes
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
@@ -97,7 +97,7 @@ class CameraActivity : ComponentActivity() {
                         )
                         IconButton(
                             onClick = {
-                                controller.cameraSelector =
+                                controller.cameraSelector = // reageerd wnr we op de button klikken en veranderd de camera van front to back of back to front
                                     if (controller.cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
                                         CameraSelector.DEFAULT_FRONT_CAMERA
                                     } else CameraSelector.DEFAULT_BACK_CAMERA
@@ -113,10 +113,14 @@ class CameraActivity : ComponentActivity() {
                             )
                         }
                         IconButton(
-                            onClick = {
+                            onClick = { // knop om terug naar start te gaan
                                 startActivity(Intent(this@CameraActivity, MainActivity::class.java))
                                 finish()
-                            }
+                            },
+                            modifier = Modifier
+                                .padding(20.dp)
+                                .align(Alignment.TopStart)
+                                .offset(16.dp, 1.dp)
                         ) {
                             Icon(
                                 imageVector = Icons.Sharp.ArrowBack,
@@ -130,7 +134,7 @@ class CameraActivity : ComponentActivity() {
                                 .padding(16.dp),
                             horizontalArrangement = Arrangement.SpaceAround
                         ) {
-                            IconButton(
+                            IconButton( // gallery open doen
                                 onClick = {
                                     scope.launch {
                                         scaffoldState.bottomSheetState.expand()
@@ -143,7 +147,7 @@ class CameraActivity : ComponentActivity() {
                                 )
                             }
                             IconButton(
-                                onClick = {
+                                onClick = { // neemt foto wnr het ingeklikt word
                                     takePhoto(
                                         controller = controller,
                                         onPhotoTaken = viewModel::onTakePhoto
@@ -169,14 +173,14 @@ class CameraActivity : ComponentActivity() {
         controller.takePicture(
             ContextCompat.getMainExecutor(applicationContext),
             object : OnImageCapturedCallback() {
-                override fun onCaptureSuccess(image: ImageProxy) {
+                override fun onCaptureSuccess(image: ImageProxy) { // proxy bevat de info over de foto zoals rotation etc
                     super.onCaptureSuccess(image)
 
                     val matrix = Matrix().apply {
                         postRotate(image.imageInfo.rotationDegrees.toFloat())
                     }
                     val rotatedBitmap = Bitmap.createBitmap(
-                        image.toBitmap(),
+                        image.toBitmap(), // converts de foto van proxy naar bitmap (JPEG) bv
                         0,
                         0,
                         image.width,
@@ -196,7 +200,7 @@ class CameraActivity : ComponentActivity() {
         )
     }
 
-    private fun hasRequiredPermissions(): Boolean {
+    private fun hasRequiredPermissions(): Boolean { // kijkt na of de app over alle camera permissions bezit
         return CAMERAX_PERMISSIONS.all {
             ContextCompat.checkSelfPermission(
                 applicationContext,
@@ -206,7 +210,7 @@ class CameraActivity : ComponentActivity() {
     }
 
     companion object {
-        private val CAMERAX_PERMISSIONS = arrayOf(
+        private val CAMERAX_PERMISSIONS = arrayOf( // gaat over de premission dat opgelijst zijn
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO,
         )

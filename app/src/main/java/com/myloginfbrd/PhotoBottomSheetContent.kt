@@ -32,7 +32,7 @@ fun PhotoBottomSheetContent(
             Text("There are no photos yet")
         }
     } else {
-        LazyVerticalStaggeredGrid(
+        LazyVerticalStaggeredGrid( // layout van de foto's in kleine gallery
             columns = StaggeredGridCells.Fixed(2),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalItemSpacing = 16.dp,

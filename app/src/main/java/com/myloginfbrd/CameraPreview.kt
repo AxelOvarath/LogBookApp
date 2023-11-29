@@ -9,12 +9,12 @@ import androidx.compose.ui.viewinterop.AndroidView
 
 @Composable
 fun CameraPreview(
-    controller: LifecycleCameraController,
+    controller: LifecycleCameraController, // de core van onze camera, helpt bij het bepalen wat we van onze camera willen
     modifier: Modifier = Modifier
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     AndroidView(
-        factory = {
+        factory = { //lamba expression
             PreviewView(it).apply {
                 this.controller = controller
                 controller.bindToLifecycle(lifecycleOwner)
