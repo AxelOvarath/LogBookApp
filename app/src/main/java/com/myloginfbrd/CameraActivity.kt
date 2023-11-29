@@ -3,6 +3,7 @@
 package com.myloginfbrd
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Matrix
@@ -27,6 +28,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cameraswitch
 import androidx.compose.material.icons.filled.Photo
 import androidx.compose.material.icons.filled.PhotoCamera
+import androidx.compose.material.icons.sharp.ArrowBack
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -87,14 +89,12 @@ class CameraActivity : ComponentActivity() {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(padding)
                     ) {
                         CameraPreview(
                             controller = controller,
                             modifier = Modifier
                                 .fillMaxSize()
                         )
-
                         IconButton(
                             onClick = {
                                 controller.cameraSelector =
@@ -103,14 +103,26 @@ class CameraActivity : ComponentActivity() {
                                     } else CameraSelector.DEFAULT_BACK_CAMERA
                             },
                             modifier = Modifier
-                                .offset(16.dp, 16.dp)
+                                .padding(20.dp)
+                                .align(Alignment.TopEnd)
+                                .offset(16.dp, 1.dp)
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Cameraswitch,
                                 contentDescription = "Switch camera"
                             )
                         }
-
+                        IconButton(
+                            onClick = {
+                                startActivity(Intent(this@CameraActivity, MainActivity::class.java))
+                                finish()
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Sharp.ArrowBack,
+                                contentDescription = "Go Back"
+                            )
+                        }
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
