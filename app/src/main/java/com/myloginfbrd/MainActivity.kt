@@ -12,6 +12,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import java.io.File
 import android.Manifest
+import android.os.Environment
+import android.util.Log
+import androidx.core.content.FileProvider
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -42,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             )
         } else {
             // Permission granted, display saved images
+            Log.d("MainActivity", "Displaying saved images")
             displaySavedImages()
         }
 
@@ -59,24 +63,39 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == MY_PERMISSIONS_REQUEST_EXTERNAL_STORAGE) {
             if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
                 // Permissions granted, display saved images
+                Log.d("MainActivity", "Displaying saved images")
                 displaySavedImages()
             } else {
                 // Handle permission denial
                 // You may show a message to the user or take appropriate action
+
+                // Check which permissions were denied
+                val deniedPermissions = mutableListOf<String>()
+                for (i in permissions.indices) {
+                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                        deniedPermissions.add(permissions[i])
+                    }
+                }
             }
         }
     }
     private fun displaySavedImages() {
         // Specify the directory where images are stored
-        val directory = File(getExternalFilesDir(null), "Images")
+        val directory = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Images")
 
         if (directory.exists() && directory.isDirectory) {
             val files = directory.listFiles()
 
             // Display each image in an ImageView or RecyclerView
             for (file in files) {
+                // Use FileProvider to generate a content URI for the file
+                val uri = FileProvider.getUriForFile(this, "com.myloginfbrd.fileprovider", file)
+
+                // Create a new ImageView for each image
                 val imageView = ImageView(this)
-                imageView.setImageURI(Uri.fromFile(file))
+
+                // Set the image using the content URI
+                imageView.setImageURI(uri)
 
                 // You can customize the layout parameters as needed
                 val layoutParams = ViewGroup.LayoutParams(
@@ -89,6 +108,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
     companion object {
         private const val MY_PERMISSIONS_REQUEST_EXTERNAL_STORAGE = 123
