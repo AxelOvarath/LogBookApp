@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        // Load and display images when MainActivity starts
         // Check and request permissions
         val permissions = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
