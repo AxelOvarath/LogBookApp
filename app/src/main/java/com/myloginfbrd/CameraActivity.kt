@@ -11,6 +11,7 @@ import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.widget.ImageView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.camera.core.CameraSelector
@@ -60,6 +61,7 @@ import java.util.Date
 import java.util.Locale
 
 class CameraActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (!hasRequiredPermissions()) { // request permission
@@ -173,9 +175,11 @@ class CameraActivity : ComponentActivity() {
     }
     private fun saveBitmapToStorage(bitmap: Bitmap) {
         // Specify the directory where you want to save the image
-        val directory = File(Environment.getExternalStorageDirectory(), "Images")
+        val directory = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Images")
+        Log.d("CameraActivity", "Directory: ${directory.absolutePath}")
 
         if (!directory.exists()) {
+            Log.e("CameraActivity", "Directory does not exist: ${directory.absolutePath}")
             directory.mkdirs()
         }
 
@@ -184,6 +188,7 @@ class CameraActivity : ComponentActivity() {
 
         // Create a file object for the specified directory and filename
         val file = File(directory, filename)
+        Log.d("CameraActivity", "Image file: ${file.absolutePath}")
 
         // Save the bitmap to the file
         try {

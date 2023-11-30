@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import java.io.File
+import android.Manifest
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -23,23 +24,46 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Load and display images when MainActivity starts
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
+        // Check and request permissions
+        val permissions = arrayOf(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+
+        val permissionsToRequest = permissions.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (permissionsToRequest.isNotEmpty()) {
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE
+                permissionsToRequest.toTypedArray(),
+                MY_PERMISSIONS_REQUEST_EXTERNAL_STORAGE
             )
         } else {
+            // Permission granted, display saved images
             displaySavedImages()
         }
 
         binding.button2.setOnClickListener {
             startActivity(Intent(this@MainActivity, CameraActivity::class.java))
             finish()
+        }
+    }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == MY_PERMISSIONS_REQUEST_EXTERNAL_STORAGE) {
+            if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                // Permissions granted, display saved images
+                displaySavedImages()
+            } else {
+                // Handle permission denial
+                // You may show a message to the user or take appropriate action
+            }
         }
     }
     private fun displaySavedImages() {
@@ -64,5 +88,9 @@ class MainActivity : AppCompatActivity() {
                 binding.imageContainer.addView(imageView, layoutParams)
             }
         }
+    }
+
+    companion object {
+        private const val MY_PERMISSIONS_REQUEST_EXTERNAL_STORAGE = 123
     }
 }
