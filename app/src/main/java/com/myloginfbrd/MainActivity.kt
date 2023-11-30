@@ -1,5 +1,6 @@
 package com.myloginfbrd
 
+import ImageAdapter
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -16,6 +17,8 @@ import android.os.Environment
 import android.util.Log
 import android.widget.RelativeLayout
 import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 
@@ -82,37 +85,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun displaySavedImages() {
-        // Specify the directory where images are stored
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         val directory = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Images")
 
         if (directory.exists() && directory.isDirectory) {
             val files = directory.listFiles()
 
-            // Display each image in an ImageView or RecyclerView
+            val imageList = mutableListOf<Uri>()
             for (file in files) {
                 // Use FileProvider to generate a content URI for the file
                 val uri = FileProvider.getUriForFile(this, "com.myloginfbrd.fileprovider", file)
-
-                // Create a new ImageView for each image
-                val imageView = ImageView(this)
-
-                // Load and display the image using Glide
-                Glide.with(this)
-                    .load(uri)
-                    .into(imageView)
-
-                // Set layout parameters to WRAP_CONTENT and add margins
-                val layoutParams = RelativeLayout.LayoutParams(
-                    RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT
-                )
-
-                // Add margins between images
-                layoutParams.setMargins(0, 0, 0, resources.getDimensionPixelSize(R.dimen.image_margin_bottom))
-
-                // Add the ImageView to your layout
-                binding.imageContainer.addView(imageView, layoutParams)
+                imageList.add(uri)
             }
+
+            // Create an instance of your custom RecyclerViewAdapter
+            val adapter = ImageAdapter(imageList)
+
+            // Use GridLayoutManager with span count 2 for 2 images side by side
+            val layoutManager = GridLayoutManager(this, 2)
+
+            // Attach the adapter and layout manager to the RecyclerView
+            recyclerView.adapter = adapter
+            recyclerView.layoutManager = layoutManager
         }
     }
 
