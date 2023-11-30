@@ -14,7 +14,10 @@ import java.io.File
 import android.Manifest
 import android.os.Environment
 import android.util.Log
+import android.widget.RelativeLayout
 import androidx.core.content.FileProvider
+import com.bumptech.glide.Glide
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -93,20 +96,26 @@ class MainActivity : AppCompatActivity() {
                 // Create a new ImageView for each image
                 val imageView = ImageView(this)
 
-                // Set the image using the content URI
-                imageView.setImageURI(uri)
+                // Load and display the image using Glide
+                Glide.with(this)
+                    .load(uri)
+                    .into(imageView)
 
-                // You can customize the layout parameters as needed
-                val layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
+                // Set layout parameters to WRAP_CONTENT and add margins
+                val layoutParams = RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT
                 )
+
+                // Add margins between images
+                layoutParams.setMargins(0, 0, 0, resources.getDimensionPixelSize(R.dimen.image_margin_bottom))
 
                 // Add the ImageView to your layout
                 binding.imageContainer.addView(imageView, layoutParams)
             }
         }
     }
+
 
 
 

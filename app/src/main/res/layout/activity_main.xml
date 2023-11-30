@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/mainactivity"
     android:background="@color/cardview_dark_background"
-
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
-        android:layout_width="439dp"
+        android:layout_width="match_parent"
         android:layout_height="68dp"
         android:background="#673AB7"
         android:minHeight="?attr/actionBarSize"
@@ -20,31 +20,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-    <LinearLayout
-        android:id="@+id/imageContainer"
+
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/toolbar2"
-        android:layout_above="@id/toolbar"
-        android:padding="16dp">
-        <!-- You can dynamically add ImageView elements here -->
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar2">
+
+        <GridLayout
+            android:id="@+id/imageContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:orientation="horizontal"
+            android:padding="16dp">
+            <!-- You can dynamically add ImageView elements here -->
+        </GridLayout>
+    </ScrollView>
+
     <TextView
         android:id="@+id/textView"
-        android:layout_width="257dp"
-        android:layout_height="55dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_alignTop="@id/toolbar2"
         android:layout_centerHorizontal="true"
         android:text="Image Gallery"
         android:textColor="#1EABE4"
         android:textSize="28dp"
-         />
+        />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="439dp"
+        android:layout_width="match_parent"
         android:layout_height="68dp"
         android:layout_alignParentBottom="true"
         android:background="#673AB7"
