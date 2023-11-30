@@ -20,6 +20,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+    <LinearLayout
+        android:id="@+id/imageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/toolbar2"
+        android:layout_above="@id/toolbar"
+        android:padding="16dp">
+        <!-- You can dynamically add ImageView elements here -->
+    </LinearLayout>
     <TextView
         android:id="@+id/textView"
         android:layout_width="257dp"
@@ -52,39 +62,4 @@
         android:gravity="center"
         android:text="Camera"
         android:textColor="@color/black" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="172dp"
-        android:layout_height="187dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginVertical="130dp"
-        tools:srcCompat="@tools:sample/avatars"
-
-        />
-
-    <Button
-        android:id="@+id/btn_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/btn_back"
-        android:layout_marginStart="130dp"
-        android:layout_centerVertical="true"
-        android:backgroundTint="#FFFFFF"
-        android:gravity="center"
-        android:text="Next"
-        android:textColor="@color/black" />
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="130dp"
-        android:layout_marginStart="100dp"
-        android:backgroundTint="#FFFFFF"
-        android:gravity="center"
-        android:text="Prev"
-        android:textColor="@color/black" />
-
-
 </RelativeLayout>

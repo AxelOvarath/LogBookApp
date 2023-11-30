@@ -54,6 +54,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.myloginfbrd.Theme.CameraXGuideTheme
 import kotlinx.coroutines.launch
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.util.Date
 import java.util.Locale
 
@@ -123,7 +125,6 @@ class CameraActivity : ComponentActivity() {
                                 finish()
                             },
                             modifier = Modifier
-                                .padding(20.dp)
                                 .align(Alignment.TopStart)
                                 .offset(16.dp, 1.dp)
                         ) {
@@ -170,6 +171,31 @@ class CameraActivity : ComponentActivity() {
             }
         }
     }
+    private fun saveBitmapToStorage(bitmap: Bitmap) {
+        // Specify the directory where you want to save the image
+        val directory = File(Environment.getExternalStorageDirectory(), "Images")
+
+        if (!directory.exists()) {
+            directory.mkdirs()
+        }
+
+        // Generate a unique filename
+        val filename = "image_${System.currentTimeMillis()}.jpg"
+
+        // Create a file object for the specified directory and filename
+        val file = File(directory, filename)
+
+        // Save the bitmap to the file
+        try {
+            val outputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            outputStream.flush()
+            outputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
 
     private fun takePhoto(
         controller: LifecycleCameraController,
@@ -193,6 +219,8 @@ class CameraActivity : ComponentActivity() {
                         matrix,
                         true
                     )
+
+                    saveBitmapToStorage(rotatedBitmap)
 
                     onPhotoTaken(rotatedBitmap)
                 }
