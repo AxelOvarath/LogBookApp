@@ -91,16 +91,23 @@ class MainActivity : AppCompatActivity() {
         if (directory.exists() && directory.isDirectory) {
             val files = directory.listFiles()
 
+            // Sort the files based on last modification timestamp in descending order
+            val sortedFiles = files.sortedByDescending { it.lastModified() }
+
             val imageList = mutableListOf<Uri>()
-            for (file in files) {
+            for (file in sortedFiles) {
                 // Use FileProvider to generate a content URI for the file
                 val uri = FileProvider.getUriForFile(this, "com.myloginfbrd.fileprovider", file)
                 imageList.add(uri)
             }
 
-            // Create an instance of your custom RecyclerViewAdapter
-            val adapter = ImageAdapter(imageList)
-
+            // Set click listener on the adapter to start FullscreenActivity
+            val adapter = ImageAdapter(imageList) { imageUri ->
+                val intent = Intent(this, FullscreenActivity::class.java).apply {
+                    putExtra("imageUri", imageUri)
+                }
+                startActivity(intent)
+            }
             // Use GridLayoutManager with span count 4 for 4 images side by side
             val layoutManager = GridLayoutManager(this, 4)
 
@@ -110,9 +117,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun DeleteDisplayedImages() {
-
-    }
 
 
 

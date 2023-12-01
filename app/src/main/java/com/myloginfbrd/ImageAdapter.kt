@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.myloginfbrd.R
 
-class ImageAdapter(private val imageList: List<Uri>) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+class ImageAdapter(private val imageList: List<Uri>, private val onItemClick: (Uri) -> Unit) :
+    RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
@@ -22,6 +23,11 @@ class ImageAdapter(private val imageList: List<Uri>) : RecyclerView.Adapter<Imag
         Glide.with(holder.itemView.context)
             .load(imageList[position])
             .into(holder.imageView)
+
+        // Set click listener on the ImageView
+        holder.imageView.setOnClickListener {
+            onItemClick(imageList[position])
+        }
     }
 
     override fun getItemCount(): Int {
