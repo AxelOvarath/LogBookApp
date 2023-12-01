@@ -1,71 +1,57 @@
-# LogbookApp
+# LogBookApp
 
-## Overview
-
-LogbookApp is a simple Android application that allows users to capture and manage a log of their images, 
-providing a convenient way to view and organize their photo collection.
+LogBookApp is a simple Android application that allows users to capture, store, and view images in a logbook style.
 
 ## Features
 
-- **Image Gallery:** View a gallery of saved images captured using the in-app camera.
-- **Camera Integration:** Access the device camera directly from the app for capturing new images.
-- **Storage Management:** Store and organize images in a dedicated directory.
+- Login & Signup with Firebase
+- Capture images using the device camera.
+- Display a grid of images sorted by most recent.
+- tap on an image to get it full-size.
 
 ## Getting Started
 
+These instructions will help you set up and run the LogBookApp on your local machine and device.
+
 ### Prerequisites
 
-- Android Studio installed
-- Android device or emulator with API level 21 or higher
+- Android Studio
+- Android device or emulator
+- Firebase
 
 ### Installation
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/your-username/LogbookApp.git
-    ```
+   ```bash
+   git clone https://github.com/yourusername/LogBookApp.git
+   ```
 
 2. Open the project in Android Studio.
 
-3. Connect your Android device (emulator does not work).
-
-4. run the application.
+3. Build and run the app on your Android device or emulator.
 
 ## Usage
 
-1. **Image Gallery:**
-    - Upon opening the app, the Image Gallery will display all saved images.
-    - Scroll through the gallery to view images.
-
-2. **Capture New Images:**
-    - Click the "Camera" button to access the in-app camera.
-    - Capture new images using the camera interface.
-
-3. **Storage Location:**
-    - All images are stored in the "LogbookApp/Images" directory.
+- Launch the app, and you will see a login.
+- If you don't have an account go to Register
+- After logging in or creating an account you are presented with images.
+- Tap the "Camera" button to capture new images.
+- tap on an image to get it in full-size.
 
 ## Contributing
 
-If you'd like to contribute to LogbookApp, please follow these steps:
+Contributions are welcome! If you have any suggestions, improvements, or bug fixes, please open an issue or submit a pull request.
 
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and commit them.
-4. Push to your fork and submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+## TO-DO
+- Ability to remove images.
+- Being able to capture video's.
+- share your images on other platforms.
+- save location and add discription to images.
 
 ## Acknowledgments
 
-- Special thanks to [OpenAI](https://www.openai.com/) for providing resources and inspiration.
-
-## Contact
-
-For issues, questions, or suggestions, please [open an issue](https://github.com/your-username/LogbookApp/issues).
-
----
-
-Replace placeholders such as "your-username" and update project-specific details as necessary. This README file serves as a starting point, and you may include additional sections based on the project's complexity and requirements.
+- CameraX tutorial: https://www.youtube.com/watch?v=12_iKwGIP64
+- Login & Signup tutorial: https://www.youtube.com/watch?v=MhLkezKsHbY
+- OpenAi for debugging and suggestions
+  
