@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar2"
         android:layout_above="@id/toolbar"
-        android:padding="16dp">
+        android:padding="6dp">
         <!-- RecyclerView will replace GridLayout -->
     </androidx.recyclerview.widget.RecyclerView>
 

@@ -101,13 +101,17 @@ class MainActivity : AppCompatActivity() {
             // Create an instance of your custom RecyclerViewAdapter
             val adapter = ImageAdapter(imageList)
 
-            // Use GridLayoutManager with span count 2 for 2 images side by side
-            val layoutManager = GridLayoutManager(this, 2)
+            // Use GridLayoutManager with span count 4 for 4 images side by side
+            val layoutManager = GridLayoutManager(this, 4)
 
             // Attach the adapter and layout manager to the RecyclerView
             recyclerView.adapter = adapter
             recyclerView.layoutManager = layoutManager
         }
+    }
+
+    private fun DeleteDisplayedImages() {
+
     }
 
 
